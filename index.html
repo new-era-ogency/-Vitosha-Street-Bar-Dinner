@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="bg" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vitosha Street Bar &amp; Dinner | София</title>
+    <meta
+      name="description"
+      content="Industrial vintage бар и ресторант на бул. Витоша 10, София. Коктейли, кухня, резервации и нощен живот."
+    />
+    <meta
+      name="keywords"
+      content="Vitosha bar, Sofia restaurant, cocktail bar Vitosha, резервация София, Vitosha Boulevard dining"
+    />
+    <link rel="canonical" href="https://vitoshastreetbar.bg/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Vitosha Street Bar &amp; Dinner" />
+    <meta
+      property="og:description"
+      content="Коктейли, авторска кухня и атмосфера на Витошка — бул. Витоша 10."
+    />
+    <meta property="og:url" content="https://vitoshastreetbar.bg/" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&amp;h=630&amp;fit=crop" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Vitosha Street Bar &amp; Dinner" />
+    <meta name="twitter:description" content="Industrial vintage бар и ресторант в сърцето на Витошка." />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&amp;h=630&amp;fit=crop" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      href="https://fonts.gstatic.com/s/oswald/v53/TK3IWkUHHAIjg75cFRf3bXL8LICs1_Fv40pKlN4NNSeSASAc7m.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { display: ['Oswald', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+            colors: {
+              industrial: { bg: '#121212', copper: '#B87333', neon: '#FFD700' },
+            },
+            keyframes: {
+              scrollCue: {
+                '0%,100%': { transform: 'translateY(0)', opacity: '0.55' },
+                '50%': { transform: 'translateY(10px)', opacity: '1' },
+              },
+            },
+            animation: { 'scroll-cue': 'scrollCue 1.8s ease-in-out infinite' },
+          },
+        },
+      };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+      html {
+        scroll-padding-top: 5.5rem;
+      }
+      #site-header {
+        transition: transform 0.38s ease, background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease,
+          backdrop-filter 0.35s ease;
+      }
+      #site-header.nav-hidden {
+        transform: translateY(-100%);
+      }
+      [data-copper-neon].neon-glow {
+        transition: text-shadow 0.45s ease, box-shadow 0.45s ease, filter 0.45s ease;
+        text-shadow: 0 0 14px rgba(255, 215, 0, 0.35), 0 0 28px rgba(184, 115, 51, 0.45);
+        filter: drop-shadow(0 0 8px rgba(184, 115, 51, 0.55));
+      }
+      article[data-copper-neon].neon-glow,
+      figure[data-copper-neon].neon-glow {
+        text-shadow: none;
+        filter: none;
+        box-shadow: 0 0 22px rgba(184, 115, 51, 0.42), 0 0 48px rgba(255, 215, 0, 0.1);
+      }
+      input[data-copper-neon].neon-glow,
+      button[data-copper-neon].neon-glow,
+      a[data-copper-neon].neon-glow {
+        text-shadow: none;
+        filter: none;
+        box-shadow: 0 0 18px rgba(184, 115, 51, 0.38), 0 0 32px rgba(255, 215, 0, 0.15);
+      }
+      .grain-overlay {
+        pointer-events: none;
+        position: fixed;
+        inset: 0;
+        z-index: 45;
+        opacity: 0.055;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+      }
+      .has-custom-cursor a,
+      .has-custom-cursor button,
+      .has-custom-cursor [role='button'] {
+        cursor: none;
+      }
+      #cursor-dot {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        margin: -5px 0 0 -5px;
+        border-radius: 9999px;
+        background: rgba(255, 215, 0, 0.85);
+        mix-blend-mode: difference;
+        pointer-events: none;
+        z-index: 200;
+        transition: transform 0.12s ease-out;
+      }
+      .img-blur-wrap img {
+        filter: blur(14px);
+        transform: scale(1.04);
+        transition: filter 0.55s ease, transform 0.55s ease;
+      }
+      .img-blur-wrap.is-loaded img {
+        filter: none;
+        transform: scale(1);
+      }
+      .menu-filter-chip[aria-pressed='true'] {
+        border-color: rgba(184, 115, 51, 0.95);
+        background: rgba(184, 115, 51, 0.18);
+        color: #ffd700;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        #site-header,
+        .animate-scroll-cue {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Vitosha Street Bar & Dinner",
+        "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200",
+        "url": "https://vitoshastreetbar.bg/",
+        "telephone": "+359-2-123-4567",
+        "email": "hello@vitoshabar.bg",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "бул. Витоша 10",
+          "addressLocality": "София",
+          "postalCode": "1000",
+          "addressCountry": "BG"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 42.6895,
+          "longitude": 23.3217
+        },
+        "servesCuisine": ["Bulgarian", "International", "Cocktails"],
+        "priceRange": "$$"
+      }
+    </script>
+  </head>
+  <body class="min-h-screen bg-industrial-bg pb-24 text-white antialiased md:pb-0">
+    <div class="grain-overlay" aria-hidden="true"></div>
+    <div id="cursor-dot" aria-hidden="true"></div>
+
+    <header id="site-header" class="fixed inset-x-0 top-0 z-50 border-b border-transparent">
+      <nav class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8" aria-label="Основна навигация">
+        <a
+          id="site-logo"
+          href="#hero"
+          data-copper-neon
+          data-section="hero"
+          class="font-display text-base font-semibold uppercase tracking-[0.18em] text-white/90 sm:text-lg"
+        >
+          VSB<span class="text-industrial-copper">&amp;</span>D
+        </a>
+        <ul class="hidden items-center gap-6 text-[11px] font-medium tracking-wide text-white/70 md:flex lg:gap-8 lg:text-xs">
+          <li><a class="nav-link transition hover:text-industrial-neon" href="#hero" data-section="hero">Начало</a></li>
+          <li><a class="nav-link transition hover:text-industrial-neon" href="#about" data-section="about">История</a></li>
+          <li><a class="nav-link transition hover:text-industrial-neon" href="#menu" data-section="menu">Меню</a></li>
+          <li><a class="nav-link transition hover:text-industrial-neon" href="#gallery" data-section="gallery">Галерия</a></li>
+          <li><a class="nav-link transition hover:text-industrial-neon" href="#reserve" data-section="reserve">Резервация</a></li>
+          <li><a class="nav-link transition hover:text-industrial-neon" href="#contact" data-section="contact">Контакти</a></li>
+        </ul>
+        <button
+          type="button"
+          id="nav-toggle"
+          class="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-sm border border-white/15 text-white md:hidden"
+          aria-expanded="false"
+          aria-controls="mobile-drawer"
+        >
+          <span class="sr-only">Меню</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
+      </nav>
+    </header>
+
+    <div
+      id="mobile-drawer"
+      class="fixed inset-y-0 right-0 z-[60] flex w-[min(20rem,88vw)] translate-x-full flex-col border-l border-white/10 bg-[#0b0b0b]/95 px-5 py-6 shadow-2xl backdrop-blur-xl transition-transform duration-300 ease-out pointer-events-none"
+      aria-hidden="true"
+      role="dialog"
+      aria-label="Мобилно меню"
+    >
+      <div class="flex items-center justify-between">
+        <span class="font-display text-sm uppercase tracking-widest text-white/80">Навигация</span>
+        <button type="button" id="mobile-close" class="min-h-[44px] min-w-[44px] text-white/70" aria-label="Затвори">✕</button>
+      </div>
+      <ul class="mt-8 flex flex-col gap-1 text-sm">
+        <li><a class="block rounded-sm px-3 py-3 text-white/85 hover:bg-white/5" href="#hero">Начало</a></li>
+        <li><a class="block rounded-sm px-3 py-3 text-white/85 hover:bg-white/5" href="#about">История</a></li>
+        <li><a class="block rounded-sm px-3 py-3 text-white/85 hover:bg-white/5" href="#menu">Меню</a></li>
+        <li><a class="block rounded-sm px-3 py-3 text-white/85 hover:bg-white/5" href="#gallery">Галерия</a></li>
+        <li><a class="block rounded-sm px-3 py-3 text-white/85 hover:bg-white/5" href="#reserve">Резервация</a></li>
+        <li><a class="block rounded-sm px-3 py-3 text-white/85 hover:bg-white/5" href="#contact">Контакти</a></li>
+      </ul>
+      <a
+        href="#reserve"
+        class="magnetic mt-auto block rounded-sm bg-industrial-copper py-4 text-center font-display text-xs font-semibold uppercase tracking-widest text-industrial-bg"
+        >Book table</a
+      >
+    </div>
+
+    <a
+      href="#reserve"
+      class="magnetic fixed bottom-28 right-4 z-40 hidden min-h-[48px] min-w-[120px] items-center justify-center rounded-full border border-industrial-neon/40 bg-industrial-copper/95 px-5 font-display text-[11px] font-semibold uppercase tracking-widest text-industrial-bg shadow-[0_8px_32px_rgba(0,0,0,0.45)] backdrop-blur md:inline-flex"
+      >Reserve</a
+    >
+
+    <main>
+      <section id="hero" class="relative flex min-h-screen items-center justify-center overflow-hidden px-4 pt-24 sm:px-6 lg:px-8">
+        <video
+          id="hero-video"
+          class="absolute inset-0 h-full w-full scale-105 object-cover"
+          autoplay
+          muted
+          loop
+          playsinline
+          poster="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&amp;w=1920&amp;q=80"
+        >
+          <source src="https://videos.pexels.com/video-files/3045163/3045163-hd_1920_1080_25fps.mp4" type="video/mp4" />
+        </video>
+        <div id="hero-spotlight" class="pointer-events-none absolute inset-0 z-[1]" aria-hidden="true"></div>
+        <div class="absolute inset-0 z-[2] bg-gradient-to-b from-black/75 via-black/55 to-industrial-bg" aria-hidden="true"></div>
+        <div id="hero-inner" class="relative z-10 mx-auto max-w-5xl text-center">
+          <p class="mb-3 font-display text-[11px] font-semibold tracking-[0.38em] text-industrial-neon/90 sm:text-xs">
+            Vitosha Boulevard · Sofia
+          </p>
+          <h1 id="hero-heading" class="font-display text-4xl font-bold uppercase leading-[0.95] tracking-tight text-white sm:text-6xl md:text-7xl">
+            Vitosha Street Bar
+            <span data-copper-neon class="mt-1 block text-industrial-copper sm:mt-2">&amp; Dinner</span>
+          </h1>
+          <p class="mx-auto mt-5 max-w-2xl text-base text-white/75 sm:text-lg">
+            Интериор в духа на Ню Йорк от 30-те, авторски коктейли и кухня до полунощ — място за срещи след офис и за нощни истории на Витошка.
+          </p>
+          <div class="mt-10 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+            <a
+              href="#reserve"
+              data-copper-neon
+              class="magnetic inline-flex min-h-[48px] min-w-[180px] items-center justify-center rounded-sm bg-industrial-copper px-8 py-3.5 font-display text-xs font-semibold uppercase tracking-[0.22em] text-industrial-bg shadow-[0_0_36px_rgba(184,115,51,0.45)] transition hover:bg-industrial-neon"
+              >Book table</a
+            >
+            <a
+              href="#menu"
+              class="inline-flex min-h-[48px] min-w-[160px] items-center justify-center rounded-sm border border-white/25 bg-white/5 px-8 py-3.5 font-display text-xs font-semibold uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm transition hover:border-industrial-neon hover:text-industrial-neon"
+              >Меню</a
+            >
+          </div>
+        </div>
+        <a
+          href="#about"
+          class="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-1 text-[10px] font-medium uppercase tracking-[0.35em] text-white/55"
+          aria-label="Скрол надолу"
+        >
+          <span class="animate-scroll-cue">Scroll</span>
+          <span class="inline-block h-8 w-px bg-gradient-to-b from-industrial-neon to-transparent"></span>
+        </a>
+      </section>
+
+      <section id="about" class="scroll-mt-28 border-t border-white/5 bg-industrial-bg px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+        <div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2 lg:gap-16">
+          <div class="js-reveal opacity-0 translate-y-8 transition-all duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100">
+            <p data-copper-neon class="font-display text-xs font-semibold tracking-[0.3em] text-industrial-copper">История</p>
+            <h2 class="mt-2 font-display text-3xl font-bold uppercase text-white sm:text-4xl">От идея до Витошка</h2>
+            <p class="mt-5 text-[15px] leading-relaxed text-white/70">
+              Проектът започва като мечта за бар, който звучи като джаз, ухае на дъб и мед, и остава отворен до последния гост. Днес Vitosha Street Bar &amp; Dinner е среща между
+              <span class="text-white">класически сервиз</span> и
+              <span class="text-white">свободен дух</span> на булеварда.
+            </p>
+            <p class="mt-4 text-[15px] leading-relaxed text-white/65">
+              Работим с местни доставчици, сезонна кухня и бар екип, обучен в Лондон и Берлин — за да поднесем чиния и чаша, които си струват вечерта.
+            </p>
+          </div>
+          <div class="js-reveal opacity-0 translate-y-8 transition-all duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100">
+            <div class="overflow-hidden rounded-sm ring-1 ring-white/10">
+              <img
+                loading="lazy"
+                class="h-full max-h-[420px] w-full object-cover"
+                src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&amp;w=900&amp;q=80&amp;fm=webp"
+                alt="Шеф в кухнята"
+                width="900"
+                height="560"
+              />
+            </div>
+            <div class="mt-6 rounded-sm border border-white/10 bg-white/[0.03] p-6 backdrop-blur-md">
+              <p class="font-display text-xs uppercase tracking-widest text-industrial-neon">Chef’s table</p>
+              <p class="mt-2 text-sm text-white/75">
+                Шеф <span class="text-white">Димитър В.</span> — меню с корени в София и техники от Западна Европа. Всяка седмица лимитирани специалитети върху дъската.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="mx-auto mt-16 max-w-6xl">
+          <div class="js-reveal grid gap-6 opacity-0 translate-y-8 transition-all duration-700 md:grid-cols-3 motion-reduce:translate-y-0 motion-reduce:opacity-100">
+            <div class="rounded-sm border border-white/10 bg-gradient-to-br from-industrial-copper/15 to-transparent p-6 backdrop-blur-sm">
+              <h3 class="font-display text-lg uppercase text-white">Signature cocktails</h3>
+              <p class="mt-2 text-sm text-white/65">Copper Sour, Vitosha Old Fashioned, Negroni Vitoshka — разработени за нашия бар.</p>
+            </div>
+            <div class="rounded-sm border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm">
+              <h3 class="font-display text-lg uppercase text-white">Nightlife</h3>
+              <p class="mt-2 text-sm text-white/65">DJ сетове, дегустации с вино и гост-бартендъри — следете ни в Instagram.</p>
+            </div>
+            <div class="rounded-sm border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm">
+              <h3 class="font-display text-lg uppercase text-white">Гости</h3>
+              <p class="mt-3 text-sm italic text-white/75">„Мястото, където Витошка най-накрая има характер.“</p>
+              <p class="mt-2 text-xs text-industrial-copper">— Капитал Weekly</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="menu" class="scroll-mt-28 border-t border-white/5 bg-[#101010] px-4 py-20 sm:px-6 sm:py-28 lg:px-8" aria-labelledby="menu-heading">
+        <div class="mx-auto max-w-6xl">
+          <header class="js-reveal mb-8 text-center opacity-0 translate-y-8 transition-all duration-700 sm:mb-12 motion-reduce:translate-y-0 motion-reduce:opacity-100">
+            <p data-copper-neon class="font-display text-xs font-semibold tracking-[0.32em] text-industrial-copper">Меню</p>
+            <h2 id="menu-heading" class="mt-2 font-display text-3xl font-bold uppercase text-white sm:text-4xl">Изкушения от бара и кухнята</h2>
+          </header>
+          <div
+            class="js-reveal mb-8 flex flex-wrap justify-center gap-2 opacity-0 translate-y-8 transition-all duration-700 sm:mb-10 motion-reduce:translate-y-0 motion-reduce:opacity-100"
+            role="tablist"
+            aria-label="Категории"
+          >
+            <button type="button" role="tab" id="tab-drinks" aria-selected="true" aria-controls="menu-panel-drinks" data-menu-tab="drinks" data-copper-neon class="menu-tab min-h-[44px] rounded-sm border border-industrial-copper bg-industrial-copper/15 px-5 py-2.5 font-display text-xs font-semibold uppercase tracking-widest text-industrial-neon">Напитки</button>
+            <button type="button" role="tab" id="tab-kitchen" aria-selected="false" aria-controls="menu-panel-kitchen" data-menu-tab="kitchen" data-copper-neon class="menu-tab min-h-[44px] rounded-sm border border-industrial-copper/40 bg-transparent px-5 py-2.5 font-display text-xs font-semibold uppercase tracking-widest text-white/70 hover:border-industrial-copper">Кухня</button>
+          </div>
+          <div id="menu-filters" class="mb-8 flex flex-wrap justify-center gap-2">
+            <button type="button" class="menu-filter-chip min-h-[40px] rounded-full border border-white/15 px-4 py-2 text-xs text-white/65" data-filter="all" aria-pressed="true">Всички</button>
+            <button type="button" class="menu-filter-chip min-h-[40px] rounded-full border border-white/15 px-4 py-2 text-xs text-white/65" data-filter="signature" aria-pressed="false">Signature</button>
+            <button type="button" class="menu-filter-chip min-h-[40px] rounded-full border border-white/15 px-4 py-2 text-xs text-white/65" data-filter="spicy" aria-pressed="false">Spicy</button>
+            <button type="button" class="menu-filter-chip min-h-[40px] rounded-full border border-white/15 px-4 py-2 text-xs text-white/65" data-filter="bestseller" aria-pressed="false">Bestseller</button>
+          </div>
+
+          <div id="menu-panel-drinks" role="tabpanel" aria-labelledby="tab-drinks" data-menu-panel="drinks" class="grid grid-cols-1 gap-4 md:grid-cols-6 md:gap-5">
+            <article data-copper-neon data-menu-tags="bestseller signature" class="menu-card group relative overflow-hidden rounded-sm bg-white/[0.04] ring-1 ring-white/10 transition duration-500 hover:-translate-y-1 hover:shadow-[0_24px_80px_rgba(0,0,0,0.55),0_0_40px_rgba(184,115,51,0.25)] md:col-span-6">
+              <div class="img-blur-wrap relative aspect-[21/9] overflow-hidden md:aspect-[24/9]">
+                <img loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&amp;w=1400&amp;q=80&amp;fm=webp" alt="Cocktail" width="1400" height="600" />
+                <div class="absolute left-3 top-3 flex flex-wrap gap-1.5">
+                  <span class="rounded-sm bg-black/70 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-industrial-neon">Bestseller</span>
+                  <span class="rounded-sm bg-black/70 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-white/85">Chef’s choice</span>
+                </div>
+              </div>
+              <div class="p-6 sm:p-8">
+                <h3 class="font-display text-2xl uppercase text-white">Vitosha Old Fashioned</h3>
+                <p class="mt-2 max-w-3xl text-sm leading-relaxed text-white/65">Бърбън, захарен сироп, горчивки и портокал — сервира се върху лед от блок, за да остане студен до последна глътка.</p>
+                <p class="mt-5 font-display text-4xl font-bold leading-none text-industrial-neon">16 <span class="text-xl font-semibold text-white/45">лв</span></p>
+              </div>
+            </article>
+            <article data-copper-neon data-menu-tags="signature spicy" class="menu-card group relative overflow-hidden rounded-sm bg-white/[0.04] ring-1 ring-white/10 transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_32px_rgba(184,115,51,0.2)] md:col-span-3">
+              <div class="img-blur-wrap relative aspect-[4/3] overflow-hidden">
+                <img loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1546171759-96c204f78eaa?auto=format&amp;w=900&amp;q=80&amp;fm=webp" alt="Negroni" width="900" height="675" />
+                <span class="absolute left-2 top-2 rounded-sm bg-black/70 px-2 py-1 text-[10px] font-semibold uppercase text-orange-200">Spicy twist</span>
+              </div>
+              <div class="p-5">
+                <h3 class="font-display text-lg uppercase text-white">Negroni Vitoshka</h3>
+                <p class="mt-2 text-sm text-white/65">Кампари, вермут, джин и лед.</p>
+                <p class="mt-4 font-display text-3xl font-bold text-industrial-neon">15 <span class="text-lg text-white/45">лв</span></p>
+              </div>
+            </article>
+            <article data-copper-neon data-menu-tags="signature" class="menu-card group relative overflow-hidden rounded-sm bg-white/[0.04] ring-1 ring-white/10 transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_32px_rgba(184,115,51,0.2)] md:col-span-3">
+              <div class="img-blur-wrap relative aspect-[4/3] overflow-hidden">
+                <img loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1514362541004-31f0354526eb?auto=format&amp;w=900&amp;q=80&amp;fm=webp" alt="Copper Sour" width="900" height="675" />
+              </div>
+              <div class="p-5">
+                <h3 class="font-display text-lg uppercase text-white">Copper Sour</h3>
+                <p class="mt-2 text-sm text-white/65">Уиски, лимон, белтък, мед.</p>
+                <p class="mt-4 font-display text-3xl font-bold text-industrial-neon">14 <span class="text-lg text-white/45">лв</span></p>
+              </div>
+            </article>
+            <article data-copper-neon data-menu-tags="bestseller" class="menu-card group relative overflow-hidden rounded-sm bg-white/[0.04] ring-1 ring-white/10 transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_32px_rgba(184,115,51,0.2)] md:col-span-2">
+              <div class="img-blur-wrap relative aspect-[4/3] overflow-hidden">
+                <img loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&amp;w=700&amp;q=80&amp;fm=webp" alt="Gin tonic" width="700" height="525" />
+                <span class="absolute left-2 top-2 rounded-sm bg-black/70 px-2 py-1 text-[10px] font-semibold uppercase text-industrial-neon">Bestseller</span>
+              </div>
+              <div class="p-5">
+                <h3 class="font-display text-base uppercase text-white">Industrial Gin &amp; Tonic</h3>
+                <p class="mt-4 font-display text-2xl font-bold text-industrial-neon">13 <span class="text-base text-white/45">лв</span></p>
+              </div>
+            </article>
+            <article data-copper-neon data-menu-tags="signature" class="menu-card group relative overflow-hidden rounded-sm bg-white/[0.04] ring-1 ring-white/10 transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_32px_rgba(184,115,51,0.2)] md:col-span-2">
+              <div class="img-blur-wrap relative aspect-[4/3] overflow-hidden">
+                <img loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&amp;w=700&amp;q=80&amp;fm=webp" alt="Espresso martini" width="700" height="525" />
+              </div>
+              <div class="p-5">
+                <h3 class="font-display text-base uppercase text-white">Espresso Martini</h3>
+                <p class="mt-4 font-display text-2xl font-bold text-industrial-neon">15 <span class="text-base text-white/45">лв</span></p>
+              </div>
+            </article>
+            <article data-copper-neon data-menu-tags="spicy" class="menu-card group relative overflow-hidden rounded-sm bg-white/[0.04] ring-1 ring-white/10 transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_32px_rgba(184,115,51,0.2)] md:col-span-2">
+              <div class="img-blur-wrap relative aspect-[4/3] overflow-hidden">
+                <img loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&amp;w=700&amp;q=80&amp;fm=webp" alt="Spritz" width="700" height="525" />
+                <span class="absolute left-2 top-2 rounded-sm bg-black/70 px-2 py-1 text-[10px] font-semibold uppercase text-orange-200">Spicy</span>
+              </div>
+              <div class="p-5">
+                <h3 class="font-display text-base uppercase text-white">Boulevard Spritz</h3>
+                <p class="mt-4 font-display text-2xl font-bold text-industrial-neon">12 <span class="text-base text-white/45">лв</span></p>
+              </div>
+            </article>
+          </div>
+
+          <div id="menu-panel-kitchen" role="tabpanel" aria-labelledby="tab-kitchen" data-menu-panel="kitchen" class="mt-4 hidden grid grid-cols-1 gap-4 md:grid-cols-6 md:gap-5">
+            <article data-copper-neon data-menu-tags="" class="menu-card group relative overflow-hidden rounded-sm bg-white/[0.04] ring-1 ring-white/10 transition duration-500 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(0,0,0,0.55),0_0_36px_rgba(184,115,51,0.22)] md:col-span-4">
+              <div class="img-blur-wrap relative aspect-[16/9] overflow-hidden">
+                <img loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&amp;w=1200&amp;q=80&amp;fm=webp" alt="Стек" width="1200" height="675" />
+                <span class="absolute left-2 top-2 rounded-sm bg-black/70 px-2 py-1 text-[10px] font-semibold uppercase text-industrial-neon">Chef’s choice</span>
+              </div>
+              <div class="p-6">
+                <h3 class="font-display text-xl uppercase text-white">Рибай на скара</h3>
+                <p class="mt-2 text-sm text-white/65">Кореноплоди, червен винен сос.</p>
+                <p class="mt-4 font-display text-4xl font-bold text-industrial-neon">48 <span class="text-xl text-white/45">лв</span></p>
+              </div>
+            </article>
+            <article data-copper-neon data-menu-tags="" class="menu-card group relative flex flex-col overflow-hidden rounded-sm bg-white/[0.04] ring-1 ring-white/10 transition duration-500 hover:-translate-y-1 md:col-span-2">
+              <div class="img-blur-wrap relative aspect-[4/3] flex-1 overflow-hidden">
+                <img loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1555992336-fb0d794ad2db?auto=format&amp;w=700&amp;q=80&amp;fm=webp" alt="Тартар" width="700" height="525" />
+              </div>
+              <div class="p-5">
+                <h3 class="font-display text-base uppercase text-white">Тартар</h3>
+                <p class="mt-3 font-display text-2xl font-bold text-industrial-neon">24 <span class="text-base text-white/45">лв</span></p>
+              </div>
+            </article>
+            <article data-copper-neon data-menu-tags="" class="menu-card group overflow-hidden rounded-sm bg-white/[0.04] ring-1 ring-white/10 transition duration-500 hover:-translate-y-1 md:col-span-2">
+              <div class="img-blur-wrap relative aspect-[4/3] overflow-hidden">
+                <img loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&amp;w=700&amp;q=80&amp;fm=webp" alt="Бургер" width="700" height="525" />
+                <span class="absolute left-2 top-2 rounded-sm bg-black/70 px-2 py-1 text-[10px] font-semibold uppercase text-industrial-neon">Bestseller</span>
+              </div>
+              <div class="p-5">
+                <h3 class="font-display text-base uppercase text-white">VSB бургер</h3>
+                <p class="mt-3 font-display text-2xl font-bold text-industrial-neon">26 <span class="text-base text-white/45">лв</span></p>
+              </div>
+            </article>
+            <article data-copper-neon data-menu-tags="" class="menu-card group overflow-hidden rounded-sm bg-white/[0.04] ring-1 ring-white/10 transition duration-500 hover:-translate-y-1 md:col-span-2">
+              <div class="img-blur-wrap relative aspect-[4/3] overflow-hidden">
+                <img loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1476124364071-e7ea7122ccf7?auto=format&amp;w=700&amp;q=80&amp;fm=webp" alt="Ризото" width="700" height="525" />
+              </div>
+              <div class="p-5">
+                <h3 class="font-display text-base uppercase text-white">Ризото морски дарове</h3>
+                <p class="mt-3 font-display text-2xl font-bold text-industrial-neon">28 <span class="text-base text-white/45">лв</span></p>
+              </div>
+            </article>
+            <article data-copper-neon data-menu-tags="" class="menu-card group overflow-hidden rounded-sm bg-white/[0.04] ring-1 ring-white/10 transition duration-500 hover:-translate-y-1 md:col-span-2">
+              <div class="img-blur-wrap relative aspect-[4/3] overflow-hidden">
+                <img loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-110" src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&amp;w=700&amp;q=80&amp;fm=webp" alt="Десерт" width="700" height="525" />
+              </div>
+              <div class="p-5">
+                <h3 class="font-display text-base uppercase text-white">Шоколад суфле</h3>
+                <p class="mt-3 font-display text-2xl font-bold text-industrial-neon">14 <span class="text-base text-white/45">лв</span></p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery" class="scroll-mt-28 border-t border-white/5 bg-[#0c0c0c] px-4 py-20 sm:px-6 sm:py-28 lg:px-8" aria-labelledby="gallery-heading">
+        <div class="mx-auto max-w-6xl">
+          <header class="js-reveal mb-10 text-center opacity-0 translate-y-8 transition-all duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100">
+            <p data-copper-neon class="font-display text-xs font-semibold tracking-[0.32em] text-industrial-copper">Галерия</p>
+            <h2 id="gallery-heading" class="mt-2 font-display text-3xl font-bold uppercase text-white sm:text-4xl">Пространство</h2>
+            <p class="mx-auto mt-3 max-w-xl text-sm text-white/60">Докоснете снимка за пълен екран. На телефон — плъзнете наляво/надясно.</p>
+          </header>
+          <div id="gallery-masonry" class="columns-1 gap-4 sm:columns-2 lg:columns-3">
+            <figure
+              data-copper-neon
+              data-gallery-src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&amp;w=1600&amp;q=85&amp;fm=webp"
+              data-gallery-alt="Кожа и латун"
+              class="js-reveal mb-4 break-inside-avoid overflow-hidden rounded-sm ring-1 ring-white/10 opacity-0 translate-y-8 transition-all duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100"
+              data-reveal-delay="0ms"
+            >
+              <div class="img-blur-wrap relative">
+                <img loading="lazy" src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&amp;w=900&amp;q=80&amp;fm=webp" alt="" class="w-full cursor-zoom-in object-cover" width="900" height="1200" />
+              </div>
+            </figure>
+            <figure
+              data-copper-neon
+              data-gallery-src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&amp;w=1600&amp;q=85&amp;fm=webp"
+              data-gallery-alt="Кирпич"
+              class="js-reveal mb-4 break-inside-avoid overflow-hidden rounded-sm ring-1 ring-white/10 opacity-0 translate-y-8 transition-all duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100"
+              data-reveal-delay="40ms"
+            >
+              <div class="img-blur-wrap relative">
+                <img loading="lazy" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&amp;w=900&amp;q=80&amp;fm=webp" alt="" class="w-full cursor-zoom-in object-cover" width="900" height="1100" />
+              </div>
+            </figure>
+            <figure
+              data-copper-neon
+              data-gallery-src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;w=1600&amp;q=85&amp;fm=webp"
+              data-gallery-alt="Мед"
+              class="js-reveal mb-4 break-inside-avoid overflow-hidden rounded-sm ring-1 ring-white/10 opacity-0 translate-y-8 transition-all duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100"
+              data-reveal-delay="80ms"
+            >
+              <div class="img-blur-wrap relative">
+                <img loading="lazy" src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;w=900&amp;q=80&amp;fm=webp" alt="" class="w-full cursor-zoom-in object-cover" width="900" height="1000" />
+              </div>
+            </figure>
+            <figure
+              data-copper-neon
+              data-gallery-src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&amp;w=1600&amp;q=85&amp;fm=webp"
+              data-gallery-alt="Бар"
+              class="js-reveal mb-4 break-inside-avoid overflow-hidden rounded-sm ring-1 ring-white/10 opacity-0 translate-y-8 transition-all duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100"
+              data-reveal-delay="20ms"
+            >
+              <div class="img-blur-wrap relative">
+                <img loading="lazy" src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&amp;w=900&amp;q=80&amp;fm=webp" alt="" class="w-full cursor-zoom-in object-cover" width="900" height="1050" />
+              </div>
+            </figure>
+            <figure
+              data-copper-neon
+              data-gallery-src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&amp;w=1600&amp;q=85&amp;fm=webp"
+              data-gallery-alt="Зала"
+              class="js-reveal mb-4 break-inside-avoid overflow-hidden rounded-sm ring-1 ring-white/10 opacity-0 translate-y-8 transition-all duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100"
+              data-reveal-delay="60ms"
+            >
+              <div class="img-blur-wrap relative">
+                <img loading="lazy" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&amp;w=900&amp;q=80&amp;fm=webp" alt="" class="w-full cursor-zoom-in object-cover" width="900" height="900" />
+              </div>
+            </figure>
+            <figure
+              data-copper-neon
+              data-gallery-src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&amp;w=1600&amp;q=85&amp;fm=webp"
+              data-gallery-alt="Вечеря"
+              class="js-reveal mb-4 break-inside-avoid overflow-hidden rounded-sm ring-1 ring-white/10 opacity-0 translate-y-8 transition-all duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100"
+              data-reveal-delay="100ms"
+            >
+              <div class="img-blur-wrap relative">
+                <img loading="lazy" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&amp;w=900&amp;q=80&amp;fm=webp" alt="" class="w-full cursor-zoom-in object-cover" width="900" height="950" />
+              </div>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section id="reserve" class="scroll-mt-28 border-t border-white/5 bg-industrial-bg px-4 py-20 sm:px-6 sm:py-28 lg:px-8" aria-labelledby="reserve-heading">
+        <div class="mx-auto max-w-lg">
+          <header class="js-reveal text-center opacity-0 translate-y-8 transition-all duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100">
+            <p data-copper-neon class="font-display text-xs font-semibold tracking-[0.32em] text-industrial-copper">Резервация</p>
+            <h2 id="reserve-heading" class="mt-2 font-display text-3xl font-bold uppercase text-white">Маса за вас</h2>
+            <p class="mt-3 text-sm text-white/55">След изпращане ще потвърдим по телефон. За автоматични имейл/Telegram свържете Supabase или Edge функция (виж коментара в app.js).</p>
+          </header>
+          <p id="booking-errors" class="mt-4 text-center text-sm text-red-400" role="alert"></p>
+          <form id="booking-form" class="js-reveal mt-8 space-y-7 opacity-0 translate-y-8 transition-all duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100">
+            <div>
+              <label for="booking-name" class="mb-2 block text-sm text-white/75">Име</label>
+              <input id="booking-name" name="name" type="text" required data-copper-neon autocomplete="name" class="w-full min-h-[48px] border-0 border-b border-industrial-copper bg-black/50 px-0 py-3 text-white placeholder:text-white/35 focus:border-industrial-neon focus:outline-none" placeholder="Име и фамилия" />
+            </div>
+            <div>
+              <label for="booking-phone" class="mb-2 block text-sm text-white/75">Телефон</label>
+              <input id="booking-phone" name="phone" type="tel" required data-copper-neon autocomplete="tel" class="w-full min-h-[48px] border-0 border-b border-industrial-copper bg-black/50 px-0 py-3 text-white placeholder:text-white/35 focus:border-industrial-neon focus:outline-none" placeholder="+359…" />
+            </div>
+            <div class="grid gap-6 sm:grid-cols-2">
+              <div>
+                <label for="booking-time" class="mb-2 block text-sm text-white/75">Дата и час</label>
+                <input id="booking-time" name="time" type="datetime-local" required data-copper-neon class="w-full min-h-[48px] border-0 border-b border-industrial-copper bg-black/50 px-0 py-3 text-white focus:border-industrial-neon focus:outline-none [color-scheme:dark]" />
+              </div>
+              <div>
+                <label for="booking-guests" class="mb-2 block text-sm text-white/75">Брой гости</label>
+                <input id="booking-guests" name="guests" type="number" min="1" max="12" value="2" required data-copper-neon class="w-full min-h-[48px] border-0 border-b border-industrial-copper bg-black/50 px-0 py-3 text-white focus:border-industrial-neon focus:outline-none" />
+              </div>
+            </div>
+            <div>
+              <label for="booking-notes" class="mb-2 block text-sm text-white/75">Специални бележки</label>
+              <textarea id="booking-notes" name="notes" rows="3" data-copper-neon class="w-full resize-y border-0 border-b border-industrial-copper bg-black/50 px-0 py-3 text-white placeholder:text-white/35 focus:border-industrial-neon focus:outline-none" placeholder="Алергии, повод, предпочитана зона…"></textarea>
+            </div>
+            <button type="submit" data-copper-neon class="magnetic min-h-[52px] w-full rounded-sm bg-industrial-copper py-3.5 font-display text-sm font-semibold uppercase tracking-[0.2em] text-industrial-bg transition hover:bg-industrial-neon">Изпрати заявка</button>
+          </form>
+          <div id="booking-success" class="mt-10 hidden rounded-sm border border-industrial-neon/40 bg-white/[0.04] p-8 text-center backdrop-blur-md" role="status">
+            <p class="font-display text-2xl uppercase text-industrial-neon">Благодарим!</p>
+            <p class="mt-3 text-sm text-white/70">Заявката е записана. Ще се обадим до 30 минути в работно време.</p>
+            <a href="#contact" class="mt-6 inline-block text-sm text-industrial-copper underline-offset-4 hover:text-industrial-neon">Към контактите</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact" class="scroll-mt-28 border-t border-white/10 bg-[#070707] px-4 py-16 sm:px-6 sm:py-20">
+      <div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <h2 class="font-display text-lg uppercase tracking-wide text-white">За нас накратко</h2>
+          <p class="mt-4 text-sm leading-relaxed text-white/65">
+            Vitosha Street Bar &amp; Dinner е независим ресторант-бар на бул. Витоша 10. Комбинираме коктейлна култура, винена листа и кухня с характер.
+          </p>
+          <div class="mt-6 flex gap-3">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/80 transition hover:border-industrial-neon hover:text-industrial-neon" aria-label="Instagram">in</a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/80 transition hover:border-industrial-neon hover:text-industrial-neon" aria-label="Facebook">f</a>
+          </div>
+        </div>
+        <div class="lg:col-span-3">
+          <h3 class="font-display text-sm uppercase tracking-widest text-industrial-copper">Работно време</h3>
+          <table class="mt-4 w-full text-left text-sm text-white/70">
+            <tbody>
+              <tr class="border-b border-white/5"><td>Пон — Чет</td><td class="py-2 text-right text-white/85">11:00 — 01:00</td></tr>
+              <tr class="border-b border-white/5"><td>Пет — Съб</td><td class="py-2 text-right text-white/85">11:00 — 02:00</td></tr>
+              <tr><td>Неделя</td><td class="py-2 text-right text-white/85">12:00 — 00:00</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lg:col-span-2">
+          <h3 class="font-display text-sm uppercase tracking-widest text-industrial-copper">Бързи връзки</h3>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li><a class="text-white/70 hover:text-industrial-neon" href="#menu">Меню</a></li>
+            <li><a class="text-white/70 hover:text-industrial-neon" href="#gallery">Галерия</a></li>
+            <li><a class="text-white/70 hover:text-industrial-neon" href="#reserve">Резервация</a></li>
+            <li><a class="text-white/70 hover:text-industrial-neon" href="#about">История</a></li>
+          </ul>
+        </div>
+        <div class="lg:col-span-3">
+          <h3 class="font-display text-sm uppercase tracking-widest text-industrial-copper">Instagram</h3>
+          <p class="mt-3 text-sm text-white/60">@vitoshastreetbar — кадри от вечерите и новите коктейли.</p>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex min-h-[44px] items-center rounded-sm border border-industrial-copper/50 px-4 text-xs font-semibold uppercase tracking-widest text-industrial-neon transition hover:bg-industrial-copper/15">Виж профила</a>
+          <form class="mt-6 flex flex-col gap-2" action="#" onsubmit="return false;">
+            <label for="newsletter" class="text-xs text-white/50">Newsletter</label>
+            <div class="flex gap-2">
+              <input id="newsletter" type="email" placeholder="имейл" class="min-h-[44px] flex-1 rounded-sm border border-white/15 bg-black/40 px-3 text-sm text-white placeholder:text-white/35 focus:border-industrial-neon focus:outline-none" />
+              <button type="button" class="min-h-[44px] rounded-sm bg-industrial-copper px-4 text-xs font-semibold uppercase text-industrial-bg">OK</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="mx-auto mt-12 max-w-6xl border-t border-white/5 pt-8">
+        <div class="grid gap-6 md:grid-cols-2">
+          <div>
+            <h3 class="sr-only">Карта</h3>
+            <iframe title="Карта: бул. Витоша 10" class="h-56 w-full rounded-sm border border-white/10 sm:h-64" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=bulevard+Vitosha+10,+Sofia,+Bulgaria&amp;hl=bg&amp;z=17&amp;output=embed"></iframe>
+          </div>
+          <address class="not-italic text-sm text-white/70">
+            <p data-copper-neon class="font-display text-xs uppercase tracking-widest text-industrial-copper">Адрес</p>
+            <p class="mt-2 text-white/90">бул. „Витоша“ 10, 1000 София</p>
+            <p class="mt-4"><a class="text-white hover:text-industrial-neon" href="tel:+35921234567">+359 2 123 4567</a></p>
+            <p class="mt-2"><a class="text-white hover:text-industrial-neon" href="mailto:hello@vitoshabar.bg">hello@vitoshabar.bg</a></p>
+          </address>
+        </div>
+        <p class="mt-10 text-center text-xs text-white/35">© <span id="y"></span> Vitosha Street Bar &amp; Dinner. Всички права запазени.</p>
+        <p class="mt-2 text-center text-[11px] text-white/25">Designed by <span class="text-white/40">Studio narrative</span> · <a class="underline hover:text-white/50" href="#">Privacy</a></p>
+      </div>
+    </footer>
+
+    <div
+      id="lightbox"
+      class="pointer-events-none fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/95 p-4"
+      aria-hidden="true"
+      role="dialog"
+      aria-label="Галерия пълен екран"
+    >
+      <button type="button" id="lightbox-close" class="absolute right-4 top-4 z-10 min-h-[44px] min-w-[44px] rounded-full border border-white/20 text-2xl text-white/80 hover:text-white" aria-label="Затвори">×</button>
+      <button type="button" id="lightbox-prev" class="absolute left-2 top-1/2 z-10 min-h-[48px] min-w-[48px] -translate-y-1/2 rounded-full border border-white/15 text-white/80 md:left-6" aria-label="Предишна">‹</button>
+      <img id="lightbox-img" alt="" class="max-h-[88vh] max-w-full object-contain shadow-2xl" width="1600" height="1200" />
+      <button type="button" id="lightbox-next" class="absolute right-2 top-1/2 z-10 min-h-[48px] min-w-[48px] -translate-y-1/2 rounded-full border border-white/15 text-white/80 md:right-6" aria-label="Следваща">›</button>
+    </div>
+
+    <div class="fixed inset-x-0 bottom-0 z-30 border-t border-white/10 bg-black/90 px-3 py-3 backdrop-blur-lg md:hidden">
+      <div class="mx-auto flex max-w-lg gap-2">
+        <a href="#menu" class="flex min-h-[48px] flex-1 items-center justify-center rounded-sm border border-white/15 text-sm text-white/85">Меню</a>
+        <a href="#reserve" data-copper-neon class="flex min-h-[48px] flex-[1.2] items-center justify-center rounded-sm bg-industrial-copper text-sm font-semibold uppercase tracking-wide text-industrial-bg">Резервирай</a>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('y').textContent = new Date().getFullYear();
+    </script>
+    <script defer src="app.js"></script>
+  </body>
+</html>
